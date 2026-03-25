@@ -11,7 +11,8 @@ CONFIG_PATH = BASE_DIR / "configs" / "train_config.json"
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MODEL_PATH = str(BASE_DIR / "models" / config["output_dir_name"] / "best-model")
+# MODEL_PATH = str(BASE_DIR / "models" / config["output_dir_name"] / "best-model")
+MODEL_PATH = "Yuu-Xie/distilbert-base-multilingual-cased-sentiment"
 
 # 2. 初始化 Pipeline
 print(f"Loading model from: {MODEL_PATH}...")
