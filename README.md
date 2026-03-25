@@ -1,4 +1,4 @@
-# Multilingual Sentiment Analysis Based on DistilBERT
+# Distilbert Base Multilingual Cased Sentiment
 
 本项目基于 `clapAI/MultiLingualSentiment` 多语言情感分类数据集，使用蒸馏模型 `distilbert-base-multilingual-cased` 进行全量微调，实现三分类情感分析（Positive, Negative, Neutral）。项目目标是探索多语言场景下轻量级模型的情感分类能力，并为后续低资源语言的情感分析提供基线。
 
