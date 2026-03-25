@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import torch
 import evaluate
 import numpy as np
 from datasets import load_dataset
@@ -18,7 +19,7 @@ CONFIG_PATH = BASE_DIR / "configs" / "train_config.json"
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
     config = json.load(f)
 
-OUTPUT_DIR = str(BASE_DIR / "models" / config["output_dir_name"])
+OUTPUT_DIR = BASE_DIR / "models" / config["output_dir_name"]
 
 
 def main():
@@ -67,7 +68,7 @@ def main():
 
     print("🚀 [5/6] Configuring Trainer...")
     training_args = TrainingArguments(
-        output_dir=OUTPUT_DIR,
+        output_dir=str(OUTPUT_DIR),
         learning_rate=config["learning_rate"],
         per_device_train_batch_size=config["per_device_train_batch_size"],
         per_device_eval_batch_size=config["per_device_eval_batch_size"],
@@ -81,7 +82,7 @@ def main():
         save_total_limit=config["save_total_limit"],
         load_best_model_at_end=True,
         metric_for_best_model="f1",
-        bf16=True,  # RTX 5090
+        bf16=True,
         logging_steps=config["logging_steps"],
         seed=config["seed"],
         report_to="tensorboard"
@@ -101,11 +102,11 @@ def main():
         callbacks=[early_stopping]
     )
 
-    print("🚀 [6/6] Starting full-scale training on RTX 5090...")
+    print(f"🚀 [6/6] Starting full-scale training on {torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU"}...")
     trainer.train()
 
     # 保存最佳模型
-    best_model_path = Path(OUTPUT_DIR) / "best-model"
+    best_model_path = OUTPUT_DIR / "best-model"
     trainer.save_model(str(best_model_path))
     tokenizer.save_pretrained(str(best_model_path))
     print(f"🎉 Training complete! Best model saved to: {best_model_path}")
