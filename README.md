@@ -1,3 +1,8 @@
+[![Hugging Face](https://img.shields.io/badge/🤗-Hugging%20Face-yellow)](https://huggingface.co/Yuu-Xie/distilbert-base-multilingual-cased-sentiment)
+[![GitHub License](https://img.shields.io/github/license/Yuu-Xie/distilbert-base-multilingual-cased-sentiment)](https://github.com/Yuu-Xie/distilbert-base-multilingual-cased-sentiment)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Yuu-Xie/distilbert-base-multilingual-cased-sentiment)](https://github.com/Yuu-Xie/distilbert-base-multilingual-cased-sentiment)
+
+
 # 🌍 Distilbert Base Multilingual Cased Sentiment
 
 本项目基于 `clapAI/MultiLingualSentiment` 数据集，使用蒸馏模型 `distilbert-base-multilingual-cased` 进行全量微调。
