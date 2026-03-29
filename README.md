@@ -7,7 +7,7 @@
 
 本项目基于 `clapAI/MultiLingualSentiment` 数据集，使用蒸馏模型 `distilbert-base-multilingual-cased` 进行全量微调。
 
-在处理 **315 万条** 全量多语言数据时，本项目通过优化的训练设置高效利用显存，仅需 **3.5 小时左右** 即可在单块 **NVIDIA A10** 上完成微调，并获得 **78.91** 的 Macro F1 分数；证明即使不使用顶级算力，也能快速迭代出工业级的多语言情感分析模型。得益于极低的显存占用，该方案甚至可在消费级 GPU（如 RTX 4060）上流畅运行。
+在处理 **315 万条** 全量多语言数据时，本项目通过优化的训练设置高效利用显存，仅需 **3.5 小时左右** 即可在单块 **NVIDIA A10** 上完成微调，并获得 **78.91** 的 Macro F1 分数。得益于极低的显存占用，该方案甚至可在消费级 GPU（如 RTX 4060）上流畅运行。
 
 ------
 
@@ -54,8 +54,6 @@
 
 
 ## ⚡ 训练效率监控 (Performance Metrics)
-
-本项目在训练阶段表现出了极高的吞吐量，能够有效支撑“快速迭代”和“低成本实验”的需求。
 
 | **维度**       | **指标参数**             | **备注**                             |
 | -------------- | ------------------------ | ------------------------------------ |
@@ -135,8 +133,7 @@ from transformers import pipeline
 # 自动从 Hugging Face 加载权重
 classifier = pipeline(
     task="sentiment-analysis", 
-    model="Yuu-Xie/distilbert-base-multilingual-cased-sentiment",
-    device=0  # 如果有 GPU 请设为 0
+    model="Yuu-Xie/distilbert-base-multilingual-cased-sentiment"
 )
 
 texts = [
@@ -168,15 +165,3 @@ python scripts/eval.py
 ```
 
 ---
-
-
-
-## 💡 为什么选择 DistilBERT ？
-
-虽然 ModernBERT 或 XLM-RoBERTa 在绝对精度上略高，但本项目选择 DistilBERT 的核心考量是：
-
-1. **极速迭代**：在 A10 上仅需 3.5 小时即可处理完 300 万条数据，意味着你可以快速进行数据清洗和实验。
-2. **低部署门槛**：134M 的模型体积配合低显存占用，适合移动端或低配云服务器部署。
-
-------
-
